@@ -15,7 +15,7 @@ def predict():
     arr = np.array([data['operator'], data['network'], data['rating'], data['latitude'], data['longitude']]).reshape(1, -1)
     print(arr)
     prediction = model.predict(arr)
-    return jsonify({"prediction": str(prediction[0])})
+    return jsonify({"prediction": int(prediction[0])})
 
 
 @app.route('/capture', methods=['POST'])
