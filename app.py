@@ -24,7 +24,7 @@ def predict():
 
 @app.route('/download', methods=['GET'])
 def download_csv():
-    download = os.path.join(os.getcwd(), 'test.csv')
+    download = os.path.join(os.getcwd(), 'PingU-dataset.csv')
     return send_file(download, as_attachment=True)
 
 
