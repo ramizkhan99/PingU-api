@@ -33,8 +33,29 @@ def download_csv():
 
 @app.route('/load', methods=['GET'])
 def json_to_csv():
-    with open('sample.json', 'r') as data:
-        return json.load(data)
+    with open('sample.json', 'r') as f:
+        # locations = json.load(f)
+        locations = f.read()
+        # locations = str(locations)
+        locations = locations[:-2] + locations[-1:]
+        locations = json.loads(locations)
+        csv_file = csv.writer(open('test.csv', 'w', newline=''))
+        csv_file.writerow(["carrier",
+                           "speed",
+                           "lat",
+                           "lon"])
+        for key in locations.keys():
+            location = locations[key]
+            csv_file.writerow([location['carrier'],
+                               location['speed'],
+                               location['lat'],
+                               location['lon']])
+        return "done"
+
+
+@app.route('/generate', methods=['POST'])
+def generate_csv():
+    files = request.files()
 
 
 if __name__ == '__main__':
