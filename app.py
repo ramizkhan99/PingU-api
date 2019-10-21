@@ -1,6 +1,6 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, current_app, send_from_directory, send_file
 import numpy as np
-import pickle
+import pickle, csv, os, json
 from flask_pymongo import PyMongo
 
 app = Flask(__name__)
@@ -18,11 +18,23 @@ def predict():
     return jsonify({"prediction": int(prediction[0])})
 
 
-@app.route('/capture', methods=['POST'])
-def capture_location():
-    data = request.get_json(force=True)
-    mongo.db.locations.insert_one(data)
-    return jsonify({'Status': 'Location Captured'})
+# @app.route('/capture', methods=['POST'])
+# def capture_location():
+#     data = request.get_json(force=True)
+#     mongo.db.locations.insert_one(data)
+#     return jsonify({'Status': 'Location Captured'})
+
+
+@app.route('/download', methods=['GET'])
+def download_csv():
+    uploads = os.path.join(os.getcwd(), 'test.csv')
+    return send_file(uploads, as_attachment=True)
+
+
+@app.route('/load', methods=['GET'])
+def json_to_csv():
+    with open('sample.json', 'r') as data:
+        return json.load(data)
 
 
 if __name__ == '__main__':

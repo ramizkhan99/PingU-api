@@ -1,0 +1,10 @@
+{
+  "mapped1": {
+    "user": 1,
+    "name": "some1"
+  },
+  "mapped2": {
+    "user": 2,
+    "name": "some2"
+  }
+}
