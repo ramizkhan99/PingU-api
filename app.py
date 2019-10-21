@@ -1,8 +1,10 @@
 from flask import Flask, request, jsonify, send_file, redirect
 import numpy as np
 import pickle, csv, os, json
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 model = pickle.load(open('model.pickle', 'rb'))
 
 # Routes
